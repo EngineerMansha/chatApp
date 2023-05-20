@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
+  console.log("token", token);
 
   if (
     req.headers.authorization &&
@@ -13,7 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       //decodes token id
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, "test");
 
       req.user = await User.findById(decoded.id).select("-password");
 
